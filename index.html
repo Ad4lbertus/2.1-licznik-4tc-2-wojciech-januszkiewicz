@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Licznik Kliknięć — Zadanie 2.1</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f1f5f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 380px;
+            padding: 28px 24px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 1.4rem;
+            color: #1e293b;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .subtitle {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-bottom: 24px;
+        }
+
+        .display-box {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 24px 10px;
+            margin-bottom: 24px;
+            transition: all 0.2s ease;
+        }
+
+        .counter-value {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #2563eb;
+            line-height: 1;
+            transition: color 0.15s ease, transform 0.1s ease;
+        }
+
+        .counter-value.negative {
+            color: #dc2626;
+        }
+
+        .counter-value.neutral {
+            color: #475569;
+        }
+
+        .actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.15s ease;
+            user-select: none;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            color: #ffffff;
+            font-size: 1.15rem;
+            padding: 16px;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+            transform: translateY(-1px);
+        }
+
+        .btn-primary:active {
+            transform: translateY(1px);
+        }
+
+        .secondary-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .btn-secondary {
+            background: #64748b;
+            color: #ffffff;
+            font-size: 0.95rem;
+            padding: 12px;
+        }
+
+        .btn-secondary:hover {
+            background: #475569;
+        }
+
+        .btn-reset {
+            background: #ef4444;
+            color: #ffffff;
+            font-size: 0.95rem;
+            padding: 12px;
+        }
+
+        .btn-reset:hover {
+            background: #dc2626;
+        }
+
+        .status-bar {
+            font-size: 0.82rem;
+            color: #64748b;
+            border-top: 1px solid #f1f5f9;
+            padding-top: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>LICZNIK KLIKNIĘĆ</h1>
+        <div class="subtitle">Zadanie 2.1 | Klasa 4TC-2 | Wojciech Januszkiewicz</div>
+
+        <div class="display-box">
+            <div id="counter" class="counter-value neutral">0</div>
+        </div>
+
+        <div class="actions">
+            <button id="btnInc" class="btn btn-primary">+1 KLIKNIJ</button>
+            <div class="secondary-grid">
+                <button id="btnDec" class="btn btn-secondary">-1 Odejmij</button>
+                <button id="btnReset" class="btn btn-reset">↺ Zeruj (0)</button>
+            </div>
+        </div>
+
+        <div class="status-bar" id="statusBar">
+            Stan: Gotowy | Wykonanych kliknięć: 0
+        </div>
+    </div>
+
+    <script>
+        let count = 0;
+        let totalClicks = 0;
+
+        const counterEl = document.getElementById('counter');
+        const statusBarEl = document.getElementById('statusBar');
+
+        function updateUI(actionText) {
+            counterEl.textContent = count;
+            counterEl.className = 'counter-value ' + (count > 0 ? '' : count < 0 ? 'negative' : 'neutral');
+            statusBarEl.textContent = `Akcja: ${actionText} | Wykonanych kliknięć: ${totalClicks}`;
+        }
+
+        document.getElementById('btnInc').addEventListener('click', () => {
+            count++;
+            totalClicks++;
+            updateUI('Zwiększono o 1');
+        });
+
+        document.getElementById('btnDec').addEventListener('click', () => {
+            count--;
+            totalClicks++;
+            updateUI('Zmniejszono o 1');
+        });
+
+        document.getElementById('btnReset').addEventListener('click', () => {
+            count = 0;
+            updateUI('Wyzerowano licznik');
+        });
+    </script>
+</body>
+</html>
